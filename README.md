@@ -1,4 +1,9 @@
-# nixos-anywhere-examples
+# deps
+
+- install multipass for testing
+- set correct keys for `users.users.ubuntu.openssh.authorizedKeys.keys`
+
+# how use
 
 ```bash
 make create_vm
