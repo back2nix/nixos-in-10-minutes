@@ -1,6 +1,9 @@
 # Переменные
 VM_NAME := ubuntu-vm
 SSH_KEY_PATH := $(HOME)/.ssh/id_rsa.pub
+IP = `multipass info $(VM_NAME) | grep IPv4 | awk '{print $$2}'`
+UBUNTU_MACHINE = ubuntu@$(IP)
+NIXOS_MACHINE = root@$(IP)
 
 # Цель по умолчанию
 # .PHONY: all
@@ -29,16 +32,10 @@ setup_ssh:
 	multipass exec $(VM_NAME) -- rm /home/ubuntu/id_rsa.pub
 	@echo "IP-адрес виртуальной машины:"
 	@multipass info $(VM_NAME) | grep IPv4 | awk '{print $$2}'
-	@multipass info ubuntu-vm | grep IPv4 | awk '{print $$2}'
-
-
-
-shell:
-	multipass shell $(VM_NAME)
 
 # Получение IP-адреса виртуальной машины
 .PHONY: get_ip
-get_ip:
+get-ip:
 	@echo "IP-адрес виртуальной машины:"
 	@multipass info $(VM_NAME) | grep IPv4 | awk '{print $$2}'
 
@@ -49,27 +46,21 @@ clean:
 	multipass delete $(VM_NAME)
 	multipass purge
 
-IP = `multipass info $(VM_NAME) | grep IPv4 | awk '{print $$2}'`
-machine = ubuntu@$(IP)
+shell/ubuntu:
+	multipass shell $(VM_NAME)
+
+shell/nixos:
+	ssh $(NIXOS_MACHINE)
 
 run-nixos-anywhere/dryrun:
 	nix run github:nix-community/nixos-anywhere -- --flake './nixos-anywhere-examples#hetzner-cloud' --vm-test
 
 run-nixos-anywhere/install:
 	ssh-keygen -f ~/.ssh/known_hosts -R "$(IP)"
-	nix run github:nix-community/nixos-anywhere -- --flake './nixos-anywhere-examples#hetzner-cloud' $(machine)
+	nix run github:nix-community/nixos-anywhere -- --flake './nixos-anywhere-examples#hetzner-cloud' $(UBUNTU_MACHINE)
 
 run-nixos-anywhere/switch:
 	ssh-keygen -f ~/.ssh/known_hosts -R "$(IP)"
 	# nix run github:nix-community/nixos-anywhere -- --flake './nixos-anywhere-examples#hetzner-cloud' root@$(IP)
 	nixos-rebuild switch --flake "./nixos-anywhere-examples#hetzner-cloud" --target-host "root@$(IP)"
 
-get-ip:
-	@echo "IPv4 address:"
-	@docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' nixos-test
-	@echo "\nIPv6 address:"
-	@docker inspect -f '{{range .NetworkSettings.Networks}}{{.GlobalIPv6Address}}{{end}}' nixos-test
-
-# copy-ssh-key:
-# 	@read -p "Enter the path to your public SSH key: " keypath; \
-# 	cp $$keypath ssh_key.pub

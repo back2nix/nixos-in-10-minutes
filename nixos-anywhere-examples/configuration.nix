@@ -24,6 +24,11 @@
     pkgs.vim
   ];
 
+  users.users.ubuntu.isNormalUser = true;
+  users.users.ubuntu.openssh.authorizedKeys.keys = [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGFNe05vWhoRa5XJxNxEa3ldUA7fWRj9FcH14/kSxg4n/ZnFjuUJRCIRZTd/wWQWHWCg9olnUhDnDgfAi3UkX4fy/WVhD4+TCvW+EawBmlrQ5Zu1WpvTVmo8fQwe8PiwZrhnKQR5TZja7uzCxazx08uPkL9Wuro+ypkq2MmHnUG9vqkIsG4H7pLa1oLK2jOSTMVOSfDGYpOb85qgpQTviUBlXAj5wAMMYau8oOop3GaRXd4BuJhISluH34A6aN3ySedKPRB5+3NXjSDqc3dQrldUg6Xw7tKBst16fA8qul5xFXLV0SO2L7ccF8kZtP9C5QTFhDatbZAIa4DB7wjKmp ubuntu@localhost"
+  ];
+
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/Pm3dni/sg8gvQrO8nZGCYLxlPMwO3RfY92msE3zICVyu0ycCUIiRB1KW4JSOdkwglt2wbrhQcb1FdUKAnNNybp78abA8NXUcM5oSDrq4ZVyKTm/qKENpLg7ajni8BXwV3fr0p55nKc+sfl1/Pqcl0X8yHXm4Nr18z9kwy70yS4+F+6rHaVnOfcE+/2ms8q0eG/hxYuTqt47BMfaD5UqFB0MfS7147GqnHfJfzuUn0TMueFvE9V/zZS/0Ner/Pi/5iz+g8AASRkZQvNhCjWXOqCOSqhkrvo3a9M5V03+1CJ4tefhdHt/HvrHbUaxb6HkD8vqbU6P6p01BrzB6F4awq9VeJ9SfrEEZaLWbtg1nn0NBjdNlMaimaP7uSF2HL4K+V4qbfFV58SXbs1EyHwH0nsWVrgtmPK7KrAUgWyBG2AnGAkrTvUEb465KVNa4YQp9FKD8uy3kkpXIzdumXhWLwKayssEPri2kg36uTFkEjq8jTIeltjyueTK8KuSFfAJ//emBqrZC1FKnwXR+uQ1FB7dfUDKCkhXUpdBLHT1DOrkofMoOFDETP9gJghTza+sfEMU/lQSOnMBsn5aAGKs+62EsM2kTfq0JRicPOyX7m5TlH6Rv7qWSYYy0or7CqVf/rZqS0NC6KILWDo9H3T3ZZ7/EHGrAsHnzhjbFsD+PhQ== bg@nixos"
   ];

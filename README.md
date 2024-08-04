@@ -1,9 +1,13 @@
 # nixos-anywhere-examples
 
-Checkout the [flake.nix](flake.nix) for examples tested on different hosters.
 ```bash
 make create_vm
 make setup_ssh
+run-nixos-anywhere/install # if failed maby retry any times
+# DONE
+```
+- check
 
-
+```bash
+shell/nixos
 ```
