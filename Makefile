@@ -13,7 +13,8 @@ NIXOS_MACHINE = root@$(IP)
 .PHONY: create_vm
 create_vm:
 	@echo "Создание виртуальной машины Ubuntu..."
-	multipass launch --name $(VM_NAME)
+	multipass launch 22.04 --name $(VM_NAME) --memory 15G --disk 20G --verbose
+
 
 # Настройка SSH
 .PHONY: setup_ssh
